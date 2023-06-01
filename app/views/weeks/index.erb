@@ -1,3 +1,19 @@
 <div>
     <h1>Weeks!</h1>
+    <%@weeks.each do |week|%>
+    <%= week.range %>
+    <table>
+        <% week.days.each do |day|%>
+        <tr>
+            <th><%=day.id%></th>
+        </tr>
+        <tr>
+            <th><%=day.day%></th>
+        </tr>
+        <%end%>
+    </table>
+    <%end%>
+
+    <%= button_to "Start New Week", weeks_add_path   %>
+
 </div>

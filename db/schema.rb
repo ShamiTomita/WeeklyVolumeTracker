@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_31_221639) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_01_135329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "days", force: :cascade do |t|
+    t.string "day"
+    t.bigint "week_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["week_id"], name: "index_days_on_week_id"
+  end
 
   create_table "muscle_groups", force: :cascade do |t|
     t.string "name"
@@ -37,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_221639) do
     t.index ["week_id"], name: "index_workouts_on_week_id"
   end
 
+  add_foreign_key "days", "weeks"
   add_foreign_key "muscle_groups", "workouts"
   add_foreign_key "workouts", "weeks"
 end

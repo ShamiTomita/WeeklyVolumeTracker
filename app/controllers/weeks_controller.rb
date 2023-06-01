@@ -9,11 +9,14 @@ class WeeksController < ApplicationController
         @week = Week.new
     end 
 
-    def create
-        if @week.save? 
-           redirect_to week_path(@week), notice: "Created!"
+    def add
+        t = Date.today
+        week = Week.create(range:t.all_week)
+        days = t.all_week.to_a.map {|day| Day.create(day: day, week_id: week.id)}
+        if week.save
+           redirect_to root_path, notice: "Created!"
         else 
-            render :edit 
+            redirect_to root_path, notice: "Wait till next week"
         end 
     end 
 
@@ -30,10 +33,6 @@ class WeeksController < ApplicationController
     end 
 
     private 
-
-    def week_params 
-        params.require(:week).permit(:range)
-    end 
 
     def current_week
         @week = Week.find(params[:id]) 
