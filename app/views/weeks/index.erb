@@ -1,19 +1,24 @@
 <div>
     <h1>Weeks!</h1>
-    <%@weeks.each do |week|%>
+    <%= flash[:notice] %>
+    <%= button_to "Start New Week", weeks_add_path   %>
+    <% @weeks.each do |week|%>
     <%= week.range %>
     <table>
-        <% week.days.each do |day|%>
+        
         <tr>
-            <th><%=day.id%></th>
-        </tr>
-        <tr>
+            <% week.days.each do |day|%>
             <th><%=day.day%></th>
+            <%end%>
+            <th>Total Volume</th>
         </tr>
-        <%end%>
+        <tr>
+            <% week.days.each do |day|%>
+            <th>Add your workout!</th>
+            <%end%>
+            <th>Total Volume</th>
+        </tr>
     </table>
     <%end%>
-
-    <%= button_to "Start New Week", weeks_add_path   %>
 
 </div>
