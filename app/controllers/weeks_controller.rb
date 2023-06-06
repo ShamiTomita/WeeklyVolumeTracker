@@ -11,12 +11,13 @@ class WeeksController < ApplicationController
 
     def add
         t = Date.today
-        week = Week.create(range:t.all_week)
-        days = t.all_week.to_a.map {|day| Day.create(day: day, week_id: week.id)}
+        week = Week.new(range:t.all_week)
+        
         if week.save
+            days = t.all_week.to_a.map {|day| Day.create(day: day.strftime("%A %d"), week_id: week.id)} #each day needs to be an  actual dateobject
            redirect_to root_path, notice: "Created!"
         else 
-            redirect_to root_path, notice: "Wait till next week"
+            flash[:notice] = "Wait till next week!"
         end 
     end 
 
